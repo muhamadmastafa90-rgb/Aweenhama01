@@ -25,19 +25,19 @@
 
         .container {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             padding: 20px;
         }
 
         /* ستایلی شووشەیی مۆدێرن */
         .glass-box {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(236, 72, 153, 0.2);
             border-radius: 24px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
             text-align: center;
         }
 
@@ -53,21 +53,21 @@
         /* باڕی بارگاویکردن (خەتەکە) */
         .progress-bar-container {
             width: 100%;
-            height: 12px;
+            height: 10px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 999px;
             overflow: hidden;
             margin-bottom: 20px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(236, 72, 153, 0.2);
             padding: 1px;
-            display: none; /* سەرەتا شاردراوەتەوە تا کلیل دەکات */
+            display: none;
         }
 
         .progress-bar {
             width: 0%;
             height: 100%;
             background: linear-gradient(90deg, #a855f7, #ec4899);
-            box-shadow: 0 0 15px #a855f7;
+            box-shadow: 0 0 15px #ec4899;
             border-radius: 999px;
         }
 
@@ -75,12 +75,12 @@
             background: linear-gradient(135deg, #a855f7, #ec4899);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 35px;
             border-radius: 999px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
             transition: transform 0.2s;
         }
 
@@ -88,42 +88,62 @@
             transform: scale(1.05);
         }
 
-        /* بەشی نامە و وێنەکە */
         .hidden {
             display: none !important;
         }
 
+        /* بەشی نامە و وێنەکە */
         .letter-box {
             border-color: rgba(236, 72, 153, 0.3);
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
-            animation: fadeIn 0.8s ease-out;
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.2);
+            animation: fadeIn 1s ease-out;
         }
 
         .message-image {
-            width: 140px;
-            height: 140px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #ec4899;
             margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
         }
 
         .letter-content {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border-radius: 16px;
             padding: 20px;
-            text-align: justify;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .shair {
+            font-style: italic;
+            color: #f472b6;
+            font-size: 15px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+            font-weight: 500;
         }
 
         .main-text {
-            font-size: 16px;
-            line-height: 2;
-            color: #cbd5e1;
+            font-size: 15px;
+            line-height: 1.9;
+            color: #e2e8f0;
             margin-bottom: 15px;
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(15px);
+            text-align: justify;
+        }
+
+        .highlight-text {
+            color: #f472b6;
+            font-weight: bold;
+            background: rgba(236, 72, 153, 0.1);
+            padding: 2px 6px;
+            border-radius: 6px;
         }
 
         @keyframes fadeIn {
@@ -158,10 +178,14 @@
             <img src="image.jpg" alt="Panda" class="message-image">
             
             <div class="letter-content">
-                <p class="main-text">ببوورە ئەم دووسێ ڕۆژە لێت تووڕە بوومە،</p>
-                <p class="main-text">ئینجا یەک داواکاریم لێت هەبوو هیوادام جێبەجێی بکەی،</p>
-                <p class="main-text">من تۆم خۆشەوێ جوان بیت یان ناشرین فەرقی نییە من ئاشقی تۆم،</p>
-                <p class="main-text">هیوادارم وازی لەو شتە بێنی...</p>
+                <div class="main-text shair">«تۆ لە نێو دڵمای، وەک لێدان بۆ ژیان...»</div>
+                <div class="main-text shair" style="margin-bottom: 25px;">«گەردوون چۆن بێ ئەستێرە نابێ، منیش بێ تۆ ئاوا وێرانم!»</div>
+
+                <p class="main-text">سەرەتا ببوورە... ببوورە ئەگەر ئەم دوو سێ ڕۆژە لێت تووڕە بووم یان دڵتەنگم کردبی، خۆت دەزانی هیچ شتێک لەم دنیایەدا هێندەی دووری و ساردی تۆ ئازارم نادات. مەیەڵە کێشە بچووکەکان کاتە جوانەکانمان لێ تێک بدەن.</p>
+                
+                <p class="main-text">من تۆم خۆشەوێ... گرنگ نییە چۆنیت، جوان بیت یان ناشرین، تەنها ئەوە گرنگە کە <span class="highlight-text">تۆ تەواوی دنیای منی</span> و من بە ڕوخسار و بە دڵ ئاشقی بوونت بوومە.</p>
+                
+                <p class="main-text">تەنها یەک داواکاریم لێت هەیە و هیوادارم وەک هەمیشە بە دڵە میهرەبانەکەت جێبەجێی بکەیت؛ <span class="highlight-text">تکایە وازی لەو شتە بێنە...</span> چونکە من و تۆ بۆ یەکترین و نامەوێ هیچ شتێک ببێتە هۆکاری مەودای نێوانمان. با پێکەوە ژیانێکی جوانتر درووست بکەین. 💜</p>
             </div>
         </div>
     </div>
@@ -189,7 +213,6 @@
 
         function runProgressCycle() {
             if (cycleCount >= 4) {
-                // دوای ٤ جار پڕبوونەوە، دەچێتە سەر نامەکە
                 goToLetterScreen();
                 return;
             }
@@ -198,41 +221,35 @@
             let width = 0;
             progressBar.style.width = '0%';
             
-            // نیشاندانی دەقی گەردوونم
-            statusText.innerText = `گەردوونم... (${cycleCount}/4)`;
+            statusText.innerText = `گەردوونم... (${cycleCount}/4) 🌌`;
 
-            // جوڵاندنی خەتەکە
             const interval = setInterval(() => {
                 if (width >= 100) {
                     clearInterval(interval);
-                    // کەمێک چاوەڕوانی پێش دەستپێکردنەوەی خولی داهاتوو
                     setTimeout(() => {
                         runProgressCycle();
                     }, 400);
                 } else {
-                    width += 2; // لێرەوە خێرایی خەتەکە دیاری دەکرێت
+                    width += 2;
                     progressBar.style.width = width + '%';
                 }
             }, 30); 
         }
 
         function goToLetterScreen() {
-            // وەستاندنی مۆسیقای یەکەم
             searchMusic.pause();
             searchMusic.currentTime = 0;
 
-            // گۆڕینی شاشەکان
             searchScreen.classList.add('hidden');
             letterScreen.classList.remove('hidden');
 
-            // لێدانی مۆسیقای نامەکە
             messageMusic.play().catch(e => console.log("مۆسیقای دووەم لێنەدرا"));
 
-            // دەرخستنی نووسینەکان یەک لە دوای یەک
+            // دەرخستنی نوسینەکان بە جوانی و یەک بە دوای یەک
             mainTexts.forEach((text, index) => {
                 setTimeout(() => {
-                    text.style.animation = "textAppear 0.8s forwards";
-                }, index * 1800); // نێوانی دەرکەوتنی هەر دێڕێک (١.٨ چرکە)
+                    text.style.animation = "textAppear 1s forwards";
+                }, index * 2200); // ٢.٢ چرکە وەستان بۆ ئەوەی بە ئارامی بیخوێنێتەوە
             });
         }
     </script>
