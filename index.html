@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گەردونی دڵم</title>
+    <style>
+        /* ستایلی گشتی بە شێوازی تاریک و مۆدێرن */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #0f172a, #020617);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            transition: all 0.5s ease-in-out;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+        }
+
+        /* ستایلی شووشەیی مۆدێرن (Bento Glassmorphism) */
+        .glass-box, .letter-box {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        /* سەردێڕی پەنجەرەکان */
+        .window-header, .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #a78bfa;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .close-btn {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+
+        .status-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            min-height: 50px;
+            color: #e2e8f0;
+        }
+
+        /* باڕی بارگاویکردن (Progress Bar) */
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 1px;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #a855f7, #ec4899);
+            box-shadow: 0 0 15px #a855f7;
+            border-radius: 999px;
+            transition: width 0.08s linear;
+        }
+
+        /* دوگمە و نۆدەکانی ناو گەردوون */
+        .orbit-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .icon-node {
+            background: rgba(168, 85, 247, 0.08);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 13px;
+            color: #ddd6fe;
+            animation: float 3s ease-in-out infinite alternate;
+        }
+
+        .icon-node:nth-child(2) { animation-delay: 0.5s; }
+        .icon-node:nth-child(3) { animation-delay: 1s; }
+        .icon-node:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-6px); }
+        }
+
+        /* دیزاینی نامە کۆتاییەکە */
+        .letter-box {
+            border-color: rgba(236, 72, 153, 0.3);
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .main-title {
+            font-size: 20px;
+            color: #f472b6;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .letter-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #cbd5e1;
+            text-align: justify;
+            margin-bottom: 25px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 14px;
+        }
+
+        .letter-footer {
+            font-size: 13px;
+            color: #f472b6;
+            background: rgba(236, 72, 153, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="music.mp3" loop></audio>
+
+    <div id="loading-screen" class="container">
+        <div class="glass-box">
+            <div class="window-header">
+                <span class="close-btn">×</span>
+                <span class="title">گەردونی_دڵم</span>
+            </div>
+            
+            <p class="status-text" id="status">لەمسەر شاشەکە کلیک بکە با پێکەوە بگەینە ئەوپەڕی گەردوون... 🚀</p>
+            
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
+
+            <div class="orbit-icons" id="icons-container" style="display: none;">
+                <div class="icon-node">💜 تۆ دڵی منی</div>
+                <div class="icon-node">🚀 بەرەو دڵت</div>
+                <div class="icon-node">🌙 مانگەکەم</div>
+                <div class="icon-node">⭐ گەردوونم</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="letter-screen" class="container hidden">
+        <div class="letter-box">
+            <div class="letter-header">
+                <span>💜</span>
+                <span>نامه_یەکی_تایبەت</span>
+                <span>||</span>
+            </div>
+            
+            <h1 class="main-title">تۆ جوانترین ڕێکەوتی گەردوونی منی!</h1>
+            
+            <div class="letter-content">
+                <p>لە نێوان ملیارەها هەسارە و ئەستێرەی ئەم گەردوونەدا، دۆزینەوەی دڵی تۆ جوانترین موعجیزەی ژیانم بوو. تۆ تەنیا ئەستێرەیەک نیت لە ئاسمانی مندا، بەڵکو تۆ تەواوی گەردوونی منی! باوەشت ئارامترین نیشتیمانە کە تێیدا بێباک لە تەواوی دنیا پشوو بدەم...</p>
+            </div>
+
+            <div class="letter-footer">
+                <p>🔒 تا هەتایە پێکەوە دەبین</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loadingScreen = document.getElementById('loading-screen');
+        const letterScreen = document.getElementById('letter-screen');
+        const progressBar = document.getElementById('progress');
+        const statusText = document.getElementById('status');
+        const iconsContainer = document.getElementById('icons-container');
+        const bgMusic = document.getElementById('bg-music');
+
+        let started = false;
+
+        // کاتێک بەکارهێنەر کلیک دەکات، پڕۆسەکە دەستپێدەکات
+        document.body.addEventListener('click', () => {
+            if (started) return;
+            started = true;
+
+            let width = 0;
+            statusText.innerText = "گەڕان بەدوای درەوشاوەترین ئەستێرەی ژیانمدا... ✨";
+            iconsContainer.style.display = 'flex';
+
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    showLetter();
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                    
+                    // گۆڕینی دەقەکان لە کاتی لۆدینگ بەپێی ڕێژەکە
+                    if(width === 35) {
+                        statusText.innerText = "تێپەڕاندنی خێرایی ڕووناکی بۆ گەیشتن بە ئامێزی تۆ... 🌌";
+                    } else if (width === 75) {
+                        statusText.innerText = "گەیشتینە شوێنی مەبەست... دۆزینەوەی دڵی تۆ! 💜";
+                    }
+                }
+            }, 60); // خێرایی لۆدینگەکە لێرەوە دەگۆڕێت (کەمتر بێت خێراتر دەبێت)
+        });
+
+        function showLetter() {
+            loadingScreen.classList.add('hidden');
+            letterScreen.classList.remove('hidden');
+            
+            // لێدانی مۆسیقای ڤیدیۆی دووەم بە شێوەی ئۆتۆماتیکی
+            bgMusic.play().catch(error => {
+                console.log("لێدانی ئۆتۆماتیکی ڕاگیرا لەلایەن بڕاوسەرەوە، بەڵام چونکە پێشتر کلیک کراوە لێدەدات.", error);
+            });
+        }
+    </script>
+</body>
+</html>
