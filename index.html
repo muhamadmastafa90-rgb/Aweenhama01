@@ -3,264 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>گەردونی دڵم</title>
+    <title>بۆ تاقانەکەم</title>
     <style>
-        /* ستایلی گشتی بە شێوازی تاریک و مۆدێرن */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: radial-gradient(circle at center, #0f172a, #020617);
-            color: #f8fafc;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            user-select: none;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
             transition: all 0.5s ease-in-out;
         }
 
-        .hidden {
-            display: none !important;
-            opacity: 0;
-        }
-
-        /* ستایلی شووشەیی مۆدێرن (Bento Glassmorphism) */
-        .glass-box, .letter-box {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            border-radius: 24px;
-            padding: 25px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        /* سەردێڕی پەنجەرەکان */
-        .window-header, .letter-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            color: #a78bfa;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .close-btn {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-size: 12px;
-        }
-
-        .status-text {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            min-height: 50px;
-            color: #e2e8f0;
-        }
-
-        /* باڕی بارگاویکردن (Progress Bar) */
-        .progress-bar-container {
-            width: 100%;
-            height: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 999px;
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            height: 100vh;
             overflow: hidden;
-            margin-bottom: 30px;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            padding: 1px;
-        }
-
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #a855f7, #ec4899);
-            box-shadow: 0 0 15px #a855f7;
-            border-radius: 999px;
-            transition: width 0.08s linear;
-        }
-
-        /* دوگمە و نۆدەکانی ناو گەردوون */
-        .orbit-icons {
+            user-select: none;
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
             justify-content: center;
+            align-items: center;
+        }
+
+        /* بەشی لۆدینگ */
+        #search-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: #010409;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        .search-container {
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid rgba(139, 148, 158, 0.2);
+            border-radius: 12px;
+            background-color: #161b22;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        .search-container h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #58a6ff;
+        }
+
+        .bar-wrapper {
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        #search-status {
+            font-size: 14px;
+            color: #8b949e;
+        }
+
+        .start-btn {
+            background-color: #58a6ff;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(88,166,255,0.3);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            background-color: #79c0ff;
+        }
+
+        /* بەشی نوسینەکان */
+        #message-screen {
+            display: none;
+            opacity: 0;
+            width: 95%;
+            max-width: 600px;
+            height: 90vh;
+            border: 1px solid #161b22;
+            border-radius: 20px;
+            background-color: #161b22;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            overflow-y: auto;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+
+        #message-screen.visible {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #161b22;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border-image: linear-gradient(to right, #58a6ff, #58ff8a) 1;
+        }
+
+        .main-text {
+            color: #f0f6fc;
+            font-size: 18px;
+            line-height: 2;
+            text-align: justify;
+            opacity: 0;
             margin-top: 20px;
         }
 
-        .icon-node {
-            background: rgba(168, 85, 247, 0.08);
-            border: 1px solid rgba(168, 85, 247, 0.25);
-            padding: 8px 16px;
-            border-radius: 999px;
-            font-size: 13px;
-            color: #ddd6fe;
-            animation: float 3s ease-in-out infinite alternate;
-        }
-
-        .icon-node:nth-child(2) { animation-delay: 0.5s; }
-        .icon-node:nth-child(3) { animation-delay: 1s; }
-        .icon-node:nth-child(4) { animation-delay: 1.5s; }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-6px); }
-        }
-
-        /* دیزاینی نامە کۆتاییەکە */
-        .letter-box {
-            border-color: rgba(236, 72, 153, 0.3);
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.15);
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .main-title {
-            font-size: 20px;
-            color: #f472b6;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .letter-content {
-            font-size: 15px;
-            line-height: 1.8;
-            color: #cbd5e1;
-            text-align: justify;
-            margin-bottom: 25px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 14px;
-        }
-
-        .letter-footer {
-            font-size: 13px;
-            color: #f472b6;
-            background: rgba(236, 72, 153, 0.1);
-            padding: 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(236, 72, 153, 0.2);
-        }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.92); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" src="music.mp3" loop></audio>
+    <!-- دەنگی گەڕان -->
+    <audio id="search-music" src="search.mp3" loop></audio>
+    <!-- دەنگی نوسینەکان -->
+    <audio id="message-music" src="message.mp3" loop></audio>
 
-    <div id="loading-screen" class="container">
-        <div class="glass-box">
-            <div class="window-header">
-                <span class="close-btn">×</span>
-                <span class="title">گەردونی_دڵم</span>
+    <!-- بەشی گەڕان -->
+    <div id="search-screen">
+        <div class="search-container">
+            <h2>گەڕان بۆ ئاشتی</h2>
+            <div class="bar-wrapper">
+                <p id="search-status">تکایە دەست بنێ بە شاشەکەدا...</p>
             </div>
-            
-            <p class="status-text" id="status">لەمسەر شاشەکە کلیک بکە با پێکەوە بگەینە ئەوپەڕی گەردوون... 🚀</p>
-            
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress"></div>
-            </div>
-
-            <div class="orbit-icons" id="icons-container" style="display: none;">
-                <div class="icon-node">💜 تۆ دڵی منی</div>
-                <div class="icon-node">🚀 بەرەو دڵت</div>
-                <div class="icon-node">🌙 مانگەکەم</div>
-                <div class="icon-node">⭐ گەردوونم</div>
-            </div>
+            <button class="start-btn" onclick="startSearch()">کلیک بکە</button>
         </div>
     </div>
 
-    <div id="letter-screen" class="container hidden">
-        <div class="letter-box">
-            <div class="letter-header">
-                <span>💜</span>
-                <span>نامه_یەکی_تایبەت</span>
-                <span>||</span>
-            </div>
-            
-            <h1 class="main-title">تۆ جوانترین ڕێکەوتی گەردوونی منی!</h1>
-            
-            <div class="letter-content">
-                <p>لە نێوان ملیارەها هەسارە و ئەستێرەی ئەم گەردوونەدا، دۆزینەوەی دڵی تۆ جوانترین موعجیزەی ژیانم بوو. تۆ تەنیا ئەستێرەیەک نیت لە ئاسمانی مندا، بەڵکو تۆ تەواوی گەردوونی منی! باوەشت ئارامترین نیشتیمانە کە تێیدا بێباک لە تەواوی دنیا پشوو بدەم...</p>
-            </div>
-
-            <div class="letter-footer">
-                <p>🔒 تا هەتایە پێکەوە دەبین</p>
-            </div>
-        </div>
+    <!-- بەشی نوسینەکان -->
+    <div id="message-screen">
+        <!-- ئەم وێنەیە لە سەرەوە دانرا -->
+        <img src="image.jpg" alt="Panda and Brown bear" class="message-image">
+        
+        <!-- ئەم دەقانە بڕگە بڕگە دەردەکەون -->
+        <p class="main-text">تکایە ببوورە ئەم دووسێ ڕۆژە لێت تووڕە بوومە،</p>
+        <p class="main-text">ئینجا یەک داواکاریم لێت هەبوو هیوادام جێبەجێی بکەی،</p>
+        <p class="main-text">من تۆم خۆشەوێ، جوان بیت یان ناشرین،</p>
+        <p class="main-text">فەرقی نییە، من ئاشقی تۆم،</p>
+        <p class="main-text">هیوادارم وازی لەو شتە بێنی، چونکە بۆ ژیانی پێکەوەبوونمان باش نییە...</p>
     </div>
 
     <script>
-        const loadingScreen = document.getElementById('loading-screen');
-        const letterScreen = document.getElementById('letter-screen');
-        const progressBar = document.getElementById('progress');
-        const statusText = document.getElementById('status');
-        const iconsContainer = document.getElementById('icons-container');
-        const bgMusic = document.getElementById('bg-music');
+        const searchStatus = document.getElementById('search-status');
+        const startBtn = document.querySelector('.start-btn');
+        const searchScreen = document.getElementById('search-screen');
+        const messageScreen = document.getElementById('message-screen');
+        const mainTexts = document.querySelectorAll('.main-text');
+        const searchMusic = document.getElementById('search-music');
+        const messageMusic = document.getElementById('message-music');
 
-        let started = false;
+        let times = 0;
+        let isSearching = false;
 
-        // کاتێک بەکارهێنەر کلیک دەکات، پڕۆسەکە دەستپێدەکات
-        document.body.addEventListener('click', () => {
-            if (started) return;
-            started = true;
+        function startSearch() {
+            if (isSearching) return;
+            isSearching = true;
+            startBtn.style.display = 'none';
+            searchStatus.innerText = "گەڕان دەستیپێکرد...";
+            searchMusic.play();
 
-            let width = 0;
-            statusText.innerText = "گەڕان بەدوای درەوشاوەترین ئەستێرەی ژیانمدا... ✨";
-            iconsContainer.style.display = 'flex';
-
-            const interval = setInterval(() => {
-                if (width >= 100) {
-                    clearInterval(interval);
-                    showLetter();
-                } else {
-                    width++;
-                    progressBar.style.width = width + '%';
-                    
-                    // گۆڕینی دەقەکان لە کاتی لۆدینگ بەپێی ڕێژەکە
-                    if(width === 35) {
-                        statusText.innerText = "تێپەڕاندنی خێرایی ڕووناکی بۆ گەیشتن بە ئامێزی تۆ... 🌌";
-                    } else if (width === 75) {
-                        statusText.innerText = "گەیشتینە شوێنی مەبەست... دۆزینەوەی دڵی تۆ! 💜";
+            const runCycle = () => {
+                let textIndex = 0;
+                let text = "گەردوونم";
+                let currentText = "";
+                
+                const typeText = () => {
+                    if (textIndex < text.length) {
+                        currentText += text.charAt(textIndex);
+                        searchStatus.innerText = currentText;
+                        textIndex++;
+                        setTimeout(typeText, 150); // خێرایی تایپکردن
+                    } else {
+                        // کاتێک تەواو بوو، ئەم کارە بکە
+                        times++;
+                        if (times < 4) {
+                            setTimeout(() => {
+                                searchStatus.innerText = "";
+                                currentText = "";
+                                textIndex = 0;
+                                setTimeout(typeText, 300); // دەستپێکردنەوەی بڕگەی نوێ
+                            }, 1000); // کاتی وەستان لە کۆتایی نوسیندا
+                        } else {
+                            // دوای چوار جار، داخلی نوسینەکان ببە
+                            searchMusic.pause();
+                            searchMusic.currentTime = 0;
+                            searchScreen.style.opacity = 0;
+                            setTimeout(() => {
+                                searchScreen.style.display = 'none';
+                                showMessages();
+                            }, 1000);
+                        }
                     }
-                }
-            }, 60); // خێرایی لۆدینگەکە لێرەوە دەگۆڕێت (کەمتر بێت خێراتر دەبێت)
-        });
-
-        function showLetter() {
-            loadingScreen.classList.add('hidden');
-            letterScreen.classList.remove('hidden');
-            
-            // لێدانی مۆسیقای ڤیدیۆی دووەم بە شێوەی ئۆتۆماتیکی
-            bgMusic.play().catch(error => {
-                console.log("لێدانی ئۆتۆماتیکی ڕاگیرا لەلایەن بڕاوسەرەوە، بەڵام چونکە پێشتر کلیک کراوە لێدەدات.", error);
-            });
+                };
+                typeText();
+            };
+            runCycle();
         }
-    </script>
+
+        function showMessages() {
+            messageScreen.style.display = 'flex';
+            setTimeout(() => {
+                messageScreen.classList.add('visible');
+                messageMusic.play();
+                
+                // دەرخستنی نوسینەکان بڕگە بڕگە
+                let textDelay = 0;
+                mainTexts.forEach(text => {
+                    setTimeout(() => {
+                        text.style.animation = "fadeIn 1s forwards";
+                    }, textDelay);
+                    textDelay += 2000; // کاتی وەستان لە نێوان نوسینەکاندا (2 چرکە)
+                });
+            }, 100);
+        }
+
+    </style>
 </body>
 </html>
